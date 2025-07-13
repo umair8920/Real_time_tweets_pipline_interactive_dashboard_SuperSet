@@ -1,0 +1,41 @@
+Project.docx
+IDS 2024-25
+
+Learning goals
+Use of multiple tools as storage systems of different types of data
+
+Use of ingestion tools that receive data from storage systems and present it to business intelligence tools
+
+Use of a business intelligence tool: Superset
+
+Problem description
+The starting point of the project is the Twitter-personality database available here (however, we provide a preprocessed version here). We'll download the database, which is composed of four files. This data describes a network of users through the connections described in edges.json. These users are described in user_info.json, a file containing data such as profile name, location, description, and whether or not they are verified. For each user, we have their tweets in user_tweets.json. Finally, for each user, we also have their personality profile, described using the MBTI model, in the mbti_labels.csv file. The first three files are not tabular, as expected, while the fourth is. The choice of warehouse used for loading/storing the data is left up to the student – it should make sense and be justified.
+
+Working environment
+The first step will be to create the script that sends tweets to our Kafka server. A first version of the script is attached to this statement. In it, a single tweet from a randomly chosen user is read (and randomly selected every 2 seconds), and then printed. You'll need to modify it so that the text is not only printed but also sent to the Kafka server. To do this, we'll use a Python script that will use the MQTT protocol to send messages (using, for example, the Paho library). The script must run within a Python container, and the Kafka server must also be managed with containers.
+
+Possible options
+We'll need to somehow redirect the MQTT messages to Kafka, for which there are several options, such as Kafka Connect (as we did in class) or an MQTT–Kafka proxy.
+
+Kafka and Superset are not easily integrated. To make that connection, Druid was suggested in class. Here you have an example on how to make that connection work.
+
+We saw two options for storing/analyzing batch data: Hive and Cassandra. Hive has an easy integration with Superset. Cassandra does not. However, it is possible to create that connection using PrestoDB (which, by the way, can also be connected to Kafka). MySQL also has an easy connection to Superset.
+
+Project and report
+The final goal of the project is to produce a Superset dashboard that includes figures integrating information from multiple data sources. A single figure will be enough.
+
+When submitting the work, two parts will be required:
+Cuando se entregue el trabajo se requerirán dos partes
+
+Solution (files, configurations, etc.) – to be submitted in a single .zip file. It must contain everything necessary to run the solutions. Documentation of program and configuration files with comments will be appreciated. The number of .yaml files to be launched with Docker Compose, as well as the launch of individual containers, should be kept to a minimum. Do not include CSV, JSON, etc. data files.
+
+Descriptive report – to be submitted in a single .pdf file. It must contain:
+
+A detailed explanation of the solution (general outline, the files it comprises, the role of each one, what each block or statement in each file does, etc.), as well as precise instructions for launching it.
+
+Scripts, connection strings, screenshots, etc. that illustrate the successful connection and the generation of a graph from the BI tool(s).
+
+Delivery will be made through eGela. Please note the file formats: only .zip is accepted for programs, configurations, etc., and .pdf is accepted for documentation. Other forms of documentation, such as video, will also be allowed, as long as they contain everything required in the PDF version of the documentation.
+
+Marks
+A project that reaches all the goals described above (with their corresponding justification), will receive a total mark of 10/10. Failing to implement functionalities will deduct points depending on the importance of the functionality and distance to reaching its completion. Implementing extra functionalities (or a complete dashboard, an extensive documentation explaining the role of each tool) can compensate for missing main functionalities.

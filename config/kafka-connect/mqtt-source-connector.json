@@ -1,0 +1,23 @@
+{
+  "name": "mqtt-source-connector",
+  "config": {
+    "connector.class": "io.confluent.connect.mqtt.MqttSourceConnector",
+    "tasks.max": "1",
+    "mqtt.server.uri": "tcp://mosquitto:1883",
+    "mqtt.topics": "twitter/tweets",
+    "kafka.topic": "twitter-tweets",
+    "mqtt.qos": "1",
+    "mqtt.username": "",
+    "mqtt.password": "",
+    "mqtt.clean.session": "true",
+    "mqtt.connection.timeout": "30",
+    "mqtt.keep.alive.interval": "60",
+    "mqtt.message.processor.class": "io.confluent.connect.mqtt.processors.Utf8StringProcessor",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+    "transforms": "addTimestamp",
+    "transforms.addTimestamp.type": "org.apache.kafka.connect.transforms.InsertField$Value",
+    "transforms.addTimestamp.timestamp.field": "kafka_timestamp"
+  }
+}
